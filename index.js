@@ -18,8 +18,16 @@ app.use(xhub({ algorithm: 'sha1', secret: process.env.APP_SECRET }));
 app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
-  console.log(req);
-  res.send('It works!');
+  if (
+    req.param('hub.mode') == 'subscribe' &&
+    req.param('hub.verify_token') == 'te_travel_bot_app_0000000110010100'
+  ) {
+    res.send(req.param('hub.challenge'));
+  } else {
+    res.sendStatus(400);
+  }
+  //console.log(req);
+  //res.send('It works!');
 });
 
 app.get(['/facebook', '/instagram'], function(req, res) {
@@ -29,7 +37,7 @@ app.get(['/facebook', '/instagram'], function(req, res) {
   ) {
     res.send(req.param('hub.challenge'));
   } else {
-    res.send(JSON.stringify(req));
+    res.sendStatus(400);
   }
 });
 
