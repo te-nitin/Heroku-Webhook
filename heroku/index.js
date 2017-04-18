@@ -1,5 +1,5 @@
-
-/* * Copyright 2016-present, Facebook, Inc.
+/**
+ * Copyright 2016-present, Facebook, Inc.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the
@@ -18,22 +18,14 @@ app.use(xhub({ algorithm: 'sha1', secret: process.env.APP_SECRET }));
 app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
-  if (
-    req.param('hub.mode') == 'subscribe' &&
-    req.param('hub.verify_token') == 'te_travel_bot_app_0000000110010100'
-  ) {
-    res.send(req.param('hub.challenge'));
-  } else {
-    res.sendStatus(400);
-  }
-  //console.log(req);
-  //res.send('It works!');
+  console.log(req);
+  res.send('It works!');
 });
 
 app.get(['/facebook', '/instagram'], function(req, res) {
   if (
     req.param('hub.mode') == 'subscribe' &&
-    req.param('hub.verify_token') == 'te_travel_bot_app_0000000110010100'
+    req.param('hub.verify_token') == 'token'
   ) {
     res.send(req.param('hub.challenge'));
   } else {
