@@ -29,7 +29,7 @@ app.get(['/facebook', '/instagram'], function(req, res) {
   ) {
     res.send(req.param('hub.challenge'));
   } else {
-    res.sendStatus(400);
+    res.send(JSON.stringify(req));
   }
 });
 
